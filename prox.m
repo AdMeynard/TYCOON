@@ -13,7 +13,6 @@ function F_out = prox(F_in,nu,L,p_Lp)
     switch p_Lp
         case 1
             F_out = sign(F_in).*max(0,abs(F_in)-nu/L);
-            %F_out = F_in.*max((1-((nu/L)./(abs(F_in))).^2),0);
         case 2
             F_out = F_in/(1+(2*nu/L));
     end

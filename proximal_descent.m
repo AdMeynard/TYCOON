@@ -28,7 +28,6 @@ while ok
     
     crit_now = functional_value(F,sig,Fs,mu,nu,alpha,gamma);
     
-    
     F_old = F;
     gradz = grad1(z,sig,Fs)+mu*grad2(z,N,omega,M,Fs,alpha); % Gradient
 

@@ -41,8 +41,10 @@ else
     end
 end
 
-if sum(isnan(OTDs)); fprintf(['\t\t\t ****', num2str(sum(isnan(OTDs))),'\n']) ; end
-OTD = mean(OTDs(find(~isnan(OTDs))));
+% if sum(isnan(OTDs)) 
+%     fprintf(['\t\t\t ****', num2str(sum(isnan(OTDs))),'\n']) ;
+% end
+OTD = mean(OTDs(~isnan(OTDs)));
 
 
 end

@@ -16,16 +16,13 @@ M = ceil(N/2);
 omega = linspace(0,Fs/2,M);% Frequency axis
 xi = linspace(-Fs/2,Fs/2,N);% frequency axis for the FFT of F wrt time
 
-crit1 = (1/Fs)*sum((real((2*pi*Fs/2/M)*sum(F)) - sig(:).').^2);
-
-
-fftT_F = fftshift(fft(F.'),1).'; %  FFT wrto t for F(t,omega)
+crit1 = (1/Fs)*sum( (real((Fs/2/(M-1))*sum(F)) - sig(:).').^2);
 
 if norm(alpha) == 0
-    crit2 = (pi/(M*N))*sum(sum(4*pi^2*abs((repmat(xi,M,1) - repmat(omega',1,N)).*fftT_F).^2));
-    
+    fftT_F = fftshift(fft(F.'),1).'; %  FFT wrt t for F(t,omega)
+    crit2 = 1/(2*(M-1)*N) * sum(sum(4*pi^2*abs((repmat(xi,M,1) - repmat(omega',1,N)).*fftT_F).^2));
 else
-    crit2 = (pi/N)*sum(sum(abs(deriv_t(F,Fs,N,M) - 1i*2*pi*bsxfun(@times,omega',F) + bsxfun(@times,alpha,deriv_f(F,Fs,N,M))).^2));
+    crit2 = 1/(2*(M-1)) * sum(sum( abs( deriv_t(F,Fs,N,M) - 2i*pi*bsxfun(@times,omega',F) + bsxfun(@times,alpha,deriv_f(F,Fs,N,M)) ).^2 ));
 end
 
 crit3 = regul_Lp_value(F,1);

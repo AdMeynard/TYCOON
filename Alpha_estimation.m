@@ -21,10 +21,5 @@ if G==1
     d = -mu*d(:)';
     alpha = d./(mu*sum(abs(D2).^2,1)+h);
 end
-alpha = alpha;
-%DD = eye(N) + diag(-ones(N-1,1),1);
-%alpha = (diag(sum(abs(D2).^2,1))+h*DD)\d(:);
-
-%alpha=alpha(:)';
 
 end
