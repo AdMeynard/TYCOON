@@ -1,5 +1,5 @@
 function F_out = prox(F_in,nu,L,p_Lp)
-% Compute the proximity operator of L2 or L1 norm
+%PROX Compute the proximity operator of L2 or L1 norm
 %   F_out = argmin_F 0.5*||F_in - F||_2^2 + nu/L ||F||_p^p
 % with p = {1,2}
 %

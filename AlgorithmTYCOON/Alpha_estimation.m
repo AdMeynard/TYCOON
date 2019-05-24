@@ -1,11 +1,15 @@
 function alpha = Alpha_estimation(F,Fs,h,mu,G)
-% Alpha estimation
+%ALPHA_ESTIMATION Estimation of the chirp factor function alpha
+% usage: alpha = Alpha_estimation(F,Fs,h,mu,G)
 % Entries:
 %   - F: the TF matrix
 %   - Fs: sampling frequency
 %   - h: regularization value
 %   - mu: mu hyperparameter
 %   - G: 1 if G estimation, alpha estimation otherwise
+%
+% Output:
+%   - alpha: chirp factor estimation
 
 [M,N] = size(F);
 

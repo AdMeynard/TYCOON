@@ -1,5 +1,6 @@
 function [lambda,x] = Lipschitz_estimation(s,Fs,mu,alpha,Lip0,x0,stopping_threshold)
-% Estimation of the Lipschitz constant using power iteration
+%LIPSCHITZ_ESTIMATION Estimation of the Lipschitz constant using power iteration
+% usage: [lambda,x] = Lipschitz_estimation(s,Fs,mu,alpha,Lip0,x0,stopping_threshold)
 % Entries:
 %  - s: time samples of the signal
 %  - Fs: Sampling frequency
@@ -8,6 +9,9 @@ function [lambda,x] = Lipschitz_estimation(s,Fs,mu,alpha,Lip0,x0,stopping_thresh
 %  - Lip0: initialization for the Lipschitz constant
 %  - x0: vector initialization
 %  - stopping_threshold: to check convergence of the algorithm
+% Output:
+%   - lambda: Lipschitz constant
+%   - x: corresponding eigen value
 
 N = length(s);
 M = ceil(N/2);
@@ -19,10 +23,9 @@ lambda = Lip0;
 
 while (abs(lambda-lambdaprec)/lambda>stopping_threshold) %stopping criterion
     lambdaprec = lambda;
-    z = x/lambda; %normalization
+    z = x/lambda; % normalization
     x = grad1(z,s,Fs) + mu*grad2(z,N,omega,M,Fs,alpha); % Linear Operator which the biggest eigen value is sought
     lambda = norm(x(:),'inf'); % Inf norm of the biggest eigen value
-    %disp(abs(lambda-lambdaprec)/lambda)
 end
 
 end

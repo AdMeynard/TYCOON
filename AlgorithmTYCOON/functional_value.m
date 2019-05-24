@@ -1,5 +1,6 @@
 function crit = functional_value(F,sig,Fs,mu,nu,alpha,gamma)
-% Estimation of the functional value
+%FUNCTIONAL_VALUE Estimation of the functional value
+% usage: crit = functional_value(F,sig,Fs,mu,nu,alpha,gamma)
 % Entries:
 %   - F: the Ideal TF estimation
 %   - sig: time samples of the signal
@@ -9,6 +10,8 @@ function crit = functional_value(F,sig,Fs,mu,nu,alpha,gamma)
 %   - alpha: alpha parameter
 %   - gamma: gamma hyperparameter
 %
+% Output:
+%   - crit: functional value 
 N = length(sig);
 M = ceil(N/2);
 

@@ -1,7 +1,13 @@
 function grad2 = grad2(F,N,omega,M,Fs,alpha)
-% Compute the second part of the gradient
-%
-%
+%GRAD2 Compute the second part of the gradient
+% Entries:
+%   - F: the Ideal TF estimation
+%   - N: length of the time vector
+%   - omega: frequency vector
+%   - M: length of the frequency vector
+%   - Fs: Sampling Frequency
+%   - alpha: chirp factor
+
 dtF = deriv_t(F, Fs, N, M );
 dfF = deriv_f(F, Fs, N, M);
 

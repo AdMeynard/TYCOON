@@ -1,9 +1,10 @@
 function crit = regul_Lp_value(F,ord)
-% Compute ||F||_p^p = sum_{t,f}^{N,M} |F_{t,f}|^p
+%REGUL_LP_VALUE Compute ||F||_p^p = sum_{t,f}^{N,M} |F_{t,f}|^p
+% usage:	crit = regul_Lp_value(F,ord)
 
 % Entries:
 %   - F: the TF matrix
-%   - p_Lp: value of p (1 or 2)
+%   - ord: value of p (1 or 2)
 %
 
 crit=norm(F(:),ord)^ord;

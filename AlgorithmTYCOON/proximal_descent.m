@@ -1,5 +1,5 @@
 function [F] = proximal_descent(sig,Fs,F_0,mu,Lipschitz_constant,nu,alpha,gamma,stop_eps,DEBUG)
-% Functional optimization using proximal descent algorithm
+%PROXIMAL_DESCENT Functional optimization using proximal descent algorithm
 % Entries:
 %   - sig: time samples of the signal
 %   - Fs: Sampling Frequency
@@ -10,7 +10,7 @@ function [F] = proximal_descent(sig,Fs,F_0,mu,Lipschitz_constant,nu,alpha,gamma,
 %   - alpha: value of alpha
 %   - gamma: the gamma hyperparameter
 %   - stop_eps: stopping criterion
-%   - DEBUG: if DEBUG=1, display of the stopping criterion through iterarions
+%   - DEBUG: if DEBUG=1, display of the stopping criterion through iterations
 
 
 N = length(sig);

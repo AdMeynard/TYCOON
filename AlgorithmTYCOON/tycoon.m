@@ -11,12 +11,11 @@ function [F,alpha] = tycoon(s,Fs,mu,nu,alpha_regul,F0,alpha0,stop_eps, DEBUG)
 %   - F_0: Initial guess of the Ideal TF estimation
 %   - alpha0: Initial guess of alpha
 %   - stop_eps: stopping criterion
-%   - DEBUG: 
+%   - DEBUG: if DEBUG=1, display of the stopping criterion through iterarions
 % 
 %   Output:
 %   - F: estimated TF matrix
 %   - alpha: estimated chirp factor
-%   - DEBUG: if DEBUG=1, display of the stopping criterion through iterarions
 
 
 [M,N] = size(F0);
