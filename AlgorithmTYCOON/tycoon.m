@@ -46,7 +46,7 @@ while ok
         fprintf('[In TYCOON] it: %d, stop_critF = %f, stop_critAlpha = %f\n',k,stop_critF,stop_critAlpha);
     end
     
-    if ((norm(F(:)) < 1e-4) || ((stop_critF < stop_eps) && stop_critAlpha < stop_eps))
+    if ((norm(F(:)) < 1e-4) || ((stop_critF < stop_eps) && stop_critAlpha < 10*stop_eps))
         ok = 0;
     end
     

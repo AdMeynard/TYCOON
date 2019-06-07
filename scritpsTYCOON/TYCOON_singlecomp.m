@@ -1,7 +1,7 @@
 clear all; close all; clc;
 
 addpath('../SynthSig');
-addpath('../algorithmTYCOON/');
+addpath('../AlgorithmTYCOON/');
 
 load('SingleComp');
 N = length(s);
@@ -11,8 +11,8 @@ F = zeros(M,N); % TF matrix
 
 alpha = zeros(1,N); % Alpha vector
 
-nbtmu = 10;
-tMuVect = logspace(1,-10,nbtmu); % on teste differents hyperparam lambda
+nbtmu = 8;
+tMuVect = logspace(0,-7,nbtmu);
 
 BigAlpha = zeros(N,nbtmu);
 BigF = zeros(M,N,nbtmu);
@@ -63,7 +63,7 @@ end
 
 t = linspace(0,N/Fs,N);
 fmax = 3;
-figure(1)
+figure(1);
 plot(t,s,'b',t,Fs/2/(M-1)*real(sum(F)),'r');
 
 figure;
@@ -85,9 +85,11 @@ set(gca, 'fontsize', 18) ;
 xlabel('Time (s)');ylabel('Frequency (Hz)'); axis([0 N/Fs 0 fmax]); axis xy ; colormap(1-gray) ;
 
 %% Comparison
-addpath(genpath('OtherMethods'))
+addpath(genpath('../OtherMethods'))
 
-[tfr, tfrtic, tfrsq, ~, tfrsqtic] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, 6, 1, 0, 0, 0) ;
+WinLength = 101;
+supp = 12; % control the variance of the Gaussian window
+[tfr, tfrtic, tfrsq, ~, tfrsqtic] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, WinLength, 1, supp, 1, 0, 0, 0) ;
 
 figure;
 subplot('Position',[0.085 0.15 0.41 0.75]);
@@ -100,3 +102,14 @@ omega = linspace(0,Fs/2,M);
 imagesc(t,omega,log1p(abs(tfrsq)));
 set(gca, 'fontsize', 18) ;
 xlabel('Time (s)');ylabel('Frequency (Hz)'); axis([0 N/Fs 0 fmax]); axis xy ; colormap(1-gray) ;
+
+
+%% Hypermparmeters influence
+
+figure;
+for nbxp = 1:nbtmu
+    subplot(1,nbtmu,nbxp);
+    Fn = BigF(:,:,nbxp);
+    imagesc(t,omega,log1p(abs(Fn))); set(gca, 'fontsize', 18) ;
+xlabel('Time (s)');ylabel('Frequency (Hz)'); axis([0 N/Fs 0 fmax]); axis xy ; colormap(1-gray) ;
+end

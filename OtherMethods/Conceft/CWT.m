@@ -14,7 +14,7 @@ function [tfr, tfrtic] = CWT(t, x, opts)
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %% prepare for the input
 
-addpath('Conceft/Morse') ;
+%addpath('Conceft/Morse') ;
 
 if nargin < 3
     opts = struct();

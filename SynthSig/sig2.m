@@ -62,5 +62,3 @@ xlabel('Time (s)') ; ylabel('$A_2$','interpreter','latex') ; axis tight ;
 subplot('Position',[0.565 0.1 0.41 0.37]);
 plot(time0,if2,'linewidth',2); set(gca, 'fontsize', 24) ;
 xlabel('Time (s)') ; ylabel('$\phi''_2$','interpreter','latex') ; axis tight ;
-
-save('SingleComp','s','if1','cf1','am1','Fs');

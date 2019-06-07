@@ -1,7 +1,7 @@
 clear all; close all; clc;
 
 addpath('../SynthSig');
-addpath('../algorithmTYCOON/');
+addpath('../AlgorithmTYCOON/');
 
 load('DoubleComp');
 N = length(s);
@@ -11,8 +11,8 @@ F = zeros(M,N); % TF matrix
 
 alpha = zeros(1,N); % Alpha vector
 
-nbtmu = 10;
-tMuVect = logspace(1,-10,nbtmu); % on teste differents hyperparam lambda
+nbtmu = 8;
+tMuVect = logspace(0,-7,nbtmu); % on teste differents hyperparam
 
 BigAlpha = zeros(N,nbtmu);
 BigF = zeros(M,N,nbtmu);
@@ -23,7 +23,7 @@ gamma = 5e-4;
 nbxp = 0;
 stop_eps = 5e-4;
 
-DEBUG = 0;
+DEBUG = 1;
 for tmu = tMuVect
     nbxp = nbxp+1;
     Fold = F;
@@ -40,12 +40,12 @@ for tmu = tMuVect
 
     if DEBUG
         t = linspace(0,N/Fs,N);
-        figure(1)
-        plot(t,s,'b',t,Fs/2/(M-1)*real(sum(F)),'r');
-
-        figure(2)
-        plot(t,alpha) ; set(gca, 'fontsize', 24) ;
-        xlabel('Time (sec)') ; ylabel('alpha') ; axis tight ;
+%         figure(1)
+%         plot(t,s,'b',t,Fs/2/(M-1)*real(sum(F)),'r');
+% 
+%         figure(2)
+%         plot(t,alpha) ; set(gca, 'fontsize', 24) ;
+%         xlabel('Time (sec)') ; ylabel('alpha') ; axis tight ;
 
         figure(3);
         omega = linspace(0,Fs/2,M);
@@ -85,22 +85,25 @@ set(gca, 'fontsize', 18) ;
 xlabel('Time (s)');ylabel('Frequency (Hz)'); axis([0 N/Fs 0 fmax]); axis xy ; colormap(1-gray) ;
 
 %% Comparison
-addpath(genpath('OtherMethods'));
+addpath(genpath('../OtherMethods'));
 
-% Synchrosqueezing STFT
-[tfr, tfrtic, tfrsq, ~, tfrsqtic] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, 6, 1, 0, 0, 0) ;
+% STFT and Synchrosqueezing STFT
+supp = 12;
+[tfr, tfrtic, ~, ~,~] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, supp, 1, 0, 0, 0) ;
+supp = 24;
+[~, ~, tfrsq, ~, tfrsqtic] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, supp, 1, 0, 0, 0) ;
 
 %Synchrosqueezing CWT
 opts = struct();
 opts.motherwavelet = 'Cinfc' ;
 opts.CENTER = 1 ;
-opts.FWHM = 0.2 ;
+opts.FWHM = 0.6 ;
 tt = linspace(t(1), t(end), length(t)*3) ;
 ss = interp1(t, s, tt, 'spline', 'extrap') ;
 [tfrsqC, ~, tfrsqticC] = ConceFT_CWT(tt', ss', 0, 5, 5e-3, 1, opts, 0, 0) ;
 
 % EMD
-EMDn = 6 ;
+EMDn = 4 ;
 allmode = eemd(s,0,1) ;
 allmode = allmode(:, 2:EMDn+1) ;
 

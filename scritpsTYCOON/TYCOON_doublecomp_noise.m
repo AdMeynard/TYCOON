@@ -1,8 +1,9 @@
 clear all; close all; clc;
 
 addpath('../SynthSig');
-addpath('../algorithmTYCOON/');
+addpath('../AlgorithmTYCOON/');
 addpath(genpath('../OtherMethods'));
+addpath('../PerfEvaluation/');
 
 load('DoubleComp');
 N = length(s);
@@ -17,13 +18,13 @@ F = zeros(M,N); % TF matrix
 
 alpha = zeros(1,N); % Alpha vector
 
-nbtmu = 10;
-tMuVect = logspace(1,-10,nbtmu); % on teste differents hyperparam lambda
+nbtmu = 8;
+tMuVect = logspace(0,-7,nbtmu); % on teste differents hyperparam lambda
 
 BigAlpha = zeros(N,nbtmu);
 BigF = zeros(M,N,nbtmu);
 
-lambda = 0.99;
+lambda = 0.98;
 gamma = 5e-4;
 
 nbxp = 0;
@@ -78,7 +79,11 @@ for indXP = 1:length(snrlevel)
     snrTYC(indXP) = 20*log10(std(s0)/(std(ssynth(:)-s0(:))));
     
     %% Synchrosqueezing STFT
-    [tfr, tfrtic, tfrsq, ~, tfrsqtic] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 151, 1, 6, 1, 0, 0, 0) ;
+    supp = 12;
+    [tfr, tfrtic, ~, ~,~] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, supp, 1, 0, 0, 0) ;
+    supp = 24;
+    [~, ~, tfrsq, ~, tfrsqtic] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, supp, 1, 0, 0, 0) ;
+    
     omega = Fs*tfrtic ;
     omegasq = Fs*tfrsqtic ;
     
@@ -89,7 +94,7 @@ for indXP = 1:length(snrlevel)
     opts = struct();
     opts.motherwavelet = 'Cinfc' ;
     opts.CENTER = 1 ;
-    opts.FWHM = 0.2 ;
+    opts.FWHM = 0.6 ;
     tt = linspace(t(1), t(end), length(t)*3) ;
     sss = interp1(t, s, tt, 'spline', 'extrap') ;
     [tfrsqC, ~, tfrsqticC] = ConceFT_CWT(tt', sss', 0, 5, 5e-3, 1, opts, 0, 0) ;
@@ -99,7 +104,7 @@ for indXP = 1:length(snrlevel)
     D_sstcwt(indXP) = performIND(ifi,ami,F2,omega);
 
     %% EMD
-    EMDn = 6 ;
+    EMDn = 4 ;
     allmode = eemd(s,0,1) ;
     allmode = allmode(:, 2:EMDn+1) ;
 
