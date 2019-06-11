@@ -19,7 +19,7 @@ D1 = deriv_t(F, Fs, N, M ) - 1i*2*pi*bsxfun(@times,omega',F);
 D2 = deriv_f(F,Fs,N,M);
 
 if G==1
-    alpha = -mu*(D2'*D1)./(mu*D2+h);
+    alpha = -mu*real(conj(D2).*D1)./(mu*abs(D2).^2+h);
   else   
     d =  diag(real(D2'*D1));
     d = -mu*d(:)';

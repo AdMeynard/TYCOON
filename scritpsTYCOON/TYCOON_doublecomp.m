@@ -9,13 +9,11 @@ N = length(s);
 M = ceil(N/2);
 F = zeros(M,N); % TF matrix
 
-alpha = zeros(1,N); % Alpha vector
-
 nbtmu = 8;
-tMuVect = logspace(0,-7,nbtmu); % on teste differents hyperparam
+tMuVect = logspace(0,-7,nbtmu); % mu hyperparameter values
 
-BigAlpha = zeros(N,nbtmu);
-BigF = zeros(M,N,nbtmu);
+BigAlpha = cell(nbtmu);
+BigF = cell(nbtmu);
 
 lambda = 0.99;
 gamma = 5e-4;
@@ -30,7 +28,7 @@ for tmu = tMuVect
     alphaold = alpha;
     mu = tmu*lambda;
     nu = tmu*(1-lambda);
-    alpha = zeros(1,N); % Alpha vector
+    alpha = zeros(1,N); % chirp factor
 
     if DEBUG
         fprintf('\n\nXP %d\n',nbxp);
@@ -54,8 +52,8 @@ for tmu = tMuVect
     end
     drawnow;
 
-    BigF(:,:,nbxp) = F;
-    BigAlpha(:,nbxp) = alpha(:);
+    BigF{nbxp} = F;
+    BigAlpha{nbxp} = alpha;
 end
 
 

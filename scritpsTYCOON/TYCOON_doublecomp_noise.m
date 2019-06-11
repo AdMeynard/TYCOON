@@ -19,7 +19,7 @@ F = zeros(M,N); % TF matrix
 alpha = zeros(1,N); % Alpha vector
 
 nbtmu = 8;
-tMuVect = logspace(0,-7,nbtmu); % on teste differents hyperparam lambda
+tMuVect = logspace(0,-7,nbtmu);
 
 BigAlpha = zeros(N,nbtmu);
 BigF = zeros(M,N,nbtmu);
