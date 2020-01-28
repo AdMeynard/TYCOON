@@ -10,6 +10,6 @@ Descriptions of the different folders:
 - `SynthSig`: functions to synthesize the signal used in the paper to perform TYCOON.
 
 # Authors
-Authors: Matthieu Kowalski, Adrien Meynard and Hau-tieng Wu  
-Contact email: adrien.meynard@duke.edu
+Authors: Matthieu Kowalski, Adrien Meynard and Hau-tieng Wu    
+Contact email: adrien.meynard@duke.edu  
 Created: 2019-05-20
