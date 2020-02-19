@@ -121,6 +121,16 @@ end
 %% Graphics
 
 figure;
+subplot('Position',[0.075 0.76 0.9 0.21]);
+plot(t,s,'linewidth',2); set(gca, 'fontsize', 24) ;
+xlabel('Time (s)') ; ylabel('$y$','interpreter','latex') ; axis tight ;
+
+subplot('Position',[0.075 0.1 0.9 0.53]);
+imagesc(t,omega,log1p(abs(tfr))); set(gca, 'fontsize', 18) ;
+xlabel('Time (s)');ylabel('Frequency (Hz)'); axis([0 N/Fs 0 Fs/2]); axis xy ; colormap(1-gray) ;
+
+
+figure;
 
 subplot('Position',[0.085 0.57 0.41 0.4]);
 omega = linspace(0,Fs/2,M);

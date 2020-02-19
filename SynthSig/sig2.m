@@ -1,5 +1,5 @@
 close all; clear all;
-
+addpath(genpath('../OtherMethods/'));
 load('ExampleAf.mat');
 time = t(401:100:end-100) ;
 Fs = 10 ;
@@ -62,3 +62,18 @@ xlabel('Time (s)') ; ylabel('$A_2$','interpreter','latex') ; axis tight ;
 subplot('Position',[0.565 0.1 0.41 0.37]);
 plot(time0,if2,'linewidth',2); set(gca, 'fontsize', 24) ;
 xlabel('Time (s)') ; ylabel('$\phi''_2$','interpreter','latex') ; axis tight ;
+
+
+figure;
+subplot('Position',[0.075 0.6 0.9 0.37]);
+plot(time0,s,'linewidth',2); set(gca, 'fontsize', 24) ;
+xlabel('Time (s)') ; ylabel('$y$','interpreter','latex') ; axis tight ;
+
+supp = 12;
+N = length(time0);
+[tfr, ~, ~, ~,~] = ConceFT_STFT(s, 0, 0.5, 0.0005, 1, 101, 1, supp, 1, 0, 0, 0) ;
+subplot('Position',[0.075 0.1 0.9 0.37]);
+M = ceil(N/2);
+omega = linspace(0,Fs/2,M);
+imagesc(time0,omega,log1p(abs(tfr))); set(gca, 'fontsize', 18) ;
+xlabel('Time (s)');ylabel('Frequency (Hz)'); axis([0 N/Fs 0 Fs/2]); axis xy ; colormap(1-gray) ;
